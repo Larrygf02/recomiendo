@@ -6,13 +6,23 @@ import FavoritesStack from './FavoritesStack';
 import SearchStack from './SearchStack';
 import TopRestaurantStack from './TopRestaurantStack';
 import AccountStack from './AccountStack';
+import { Icon } from 'react-native-elements';
 
 const Tab = createBottomTabNavigator();
 
 export default function Navigation() {
     return (
         <NavigationContainer>
-            <Tab.Navigator>
+            <Tab.Navigator
+            initialRouteName="account"
+            tabBarOptions={{
+                inactiveTintColor: "#646464",
+                activeTintColor: "#00a680"
+            }}
+            screenOptions={({ route }) => ({
+                tabBarIcon: ({ color }) => screenOptions(route, color)
+            })}
+            >
                 <Tab.Screen
                 name="restaurants"
                 component={RestaurantsStack}
@@ -36,5 +46,35 @@ export default function Navigation() {
                 options={{ title: 'Cuenta'}}></Tab.Screen>
             </Tab.Navigator>
         </NavigationContainer>
+    )
+}
+
+function screenOptions(route, color ) {
+    let iconName;
+    console.log(route.name);
+    switch (route.name) {
+        case "restaurants":
+            iconName = "compass-outline"
+            break;
+        case "favorites":
+            iconName = "heart-outline"
+            break;
+        case "top-restaurants":
+            iconName = "star-outline"
+            break;
+        case "search":
+            iconName = "magnify"
+            break;
+        case "account":
+            iconName = "home-outline"
+            break;
+        default:
+             break;
+    }
+    return (
+        <Icon type="material-communiy" 
+        name={iconName}
+        size={22}
+        color={color}></Icon>
     )
 }
