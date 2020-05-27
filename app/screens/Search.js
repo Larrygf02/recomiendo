@@ -8,3 +8,4 @@ function Search() {
         </View>
     );
 }
+export default Search;
